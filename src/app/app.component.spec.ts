@@ -1,33 +1,30 @@
-// import { TestBed } from '@angular/core/testing';
-// import { RouterTestingModule } from '@angular/router/testing';
-// import { AppComponent } from './app.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AppComponent } from './app.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-// describe('AppComponent', () => {
-//   beforeEach(async () => {
-//     await TestBed.configureTestingModule({
-//       imports: [RouterTestingModule],
-//       declarations: [AppComponent],
-//     }).compileComponents();
-//   });
+describe('AppComponent', () => {
+  let fixture: ComponentFixture<AppComponent>;
+  let component: AppComponent;
 
-//   it('should create the app', () => {
-//     const fixture = TestBed.createComponent(AppComponent);
-//     const app = fixture.componentInstance;
-//     expect(app).toBeTruthy();
-//   });
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [AppComponent],
+      // Ignore unknown elements like <app-calculator>
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    }).compileComponents();
 
-//   it(`should have as title 'calculator-app'`, () => {
-//     const fixture = TestBed.createComponent(AppComponent);
-//     const app = fixture.componentInstance;
-//     // expect(app.title).toEqual('calculator-app');
-//   });
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+  });
 
-//   it('should render title', () => {
-//     const fixture = TestBed.createComponent(AppComponent);
-//     fixture.detectChanges();
-//     const compiled = fixture.nativeElement as HTMLElement;
-//     expect(compiled.querySelector('.content span')?.textContent).toContain(
-//       'calculator-app app is running!'
-//     );
-//   });
-// });
+  it('should create the app', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should render Angular calculator and legacy container', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('app-calculator')).toBeTruthy();
+    expect(compiled.innerHTML).toContain('app-calculator');
+  });
+});

@@ -43,4 +43,10 @@ describe('CalculatorComponent', () => {
     component.divide();
     expect(component.result).toBe(5);
   });
+  it('should return 0 if a or b is 0 in divide()', () => {
+    component.a = 0;
+    component.b = 0;
+    component.divide();
+    expect(component.result).toBe(0);
+  });
 });
